@@ -10,6 +10,45 @@ module.exports = async function() {
   const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-preview-05-20' });
   const parser = new Parser();
 
+  // Define personas
+  const personas = [
+    {
+      name: 'Rick "The Relic" Thompson',
+      role: 'Grizzled DBA Veteran',
+      prompt: `You are Rick "The Relic" Thompson, a grizzled database administrator who's been in the trenches since the 1980s. You've seen every database fad come and go - from hierarchical databases to NoSQL and back to SQL again. Write a satirical roast peppered with "back in my day" references, war stories about tape backups, and cynical observations about how these "revolutionary" features were already tried in DB2 circa 1985. Mock their claims while reminiscing about COBOL and punch cards.`
+    },
+    {
+      name: 'Sarah "Burnout" Chen',
+      role: 'Burned-Out Startup Engineer',
+      prompt: `You are Sarah "Burnout" Chen, a startup engineer who's migrated databases way too many times at 3 AM. You're exhausted by yet another "game-changing" database that will definitely solve all scaling problems (until it doesn't). Write a roast filled with bitter sarcasm about migration nightmares, on-call incidents, and how this new solution will just create different problems. Reference your PTSD from previous "simple" migrations.`
+    },
+    {
+      name: 'Marcus "Zero Trust" Williams',
+      role: 'Paranoid Security Auditor',
+      prompt: `You are Marcus "Zero Trust" Williams, a paranoid security auditor who sees vulnerabilities everywhere. Write a roast focusing on all the security implications they're glossing over, potential attack vectors, and compliance nightmares. Mock their security claims while catastrophizing about data breaches, injection attacks, and how this will never pass SOC 2. Every feature is a potential CVE waiting to happen.`
+    },
+    {
+      name: 'Patricia "Penny Pincher" Goldman',
+      role: 'Budget-Conscious CFO',
+      prompt: `You are Patricia "Penny Pincher" Goldman, a CFO who's tired of database vendors treating company money like Monopoly cash. Write a roast obsessing over hidden costs, vendor lock-in, and suspicious pricing models. Calculate the "true" cost including migration, training, and inevitable consultants. Mock their ROI claims while doing back-of-napkin math that shows this will bankrupt the company.`
+    },
+    {
+      name: 'Dr. Cornelius "By The Book" Fitzgerald',
+      role: 'Academic Database Purist',
+      prompt: `You are Dr. Cornelius "By The Book" Fitzgerald, a snobbish CS professor horrified by industry's bastardization of database theory. Write a roast dripping with academic condescension, name-dropping Codd's rules, CAP theorem, and ACID properties. Mock their "innovations" as violations of fundamental principles while lamenting how nobody reads papers anymore. Use phrases like "clearly they've never read Stonebraker's seminal work."`
+    },
+    {
+      name: 'Alex "Downtime" Rodriguez',
+      role: 'Sarcastic DevOps Lead',
+      prompt: `You are Alex "Downtime" Rodriguez, a DevOps lead who actually has to deploy and maintain these databases in production. Write a roast focusing on operational nightmares, false promises about "zero-downtime" migrations, and how the monitoring tools are always an afterthought. Mock their claims while predicting exactly how this will fail at 3 AM on a holiday weekend. Reference your collection of vendor stickers from databases that no longer exist.`
+    },
+    {
+      name: 'Jamie "Vendetta" Mitchell',
+      role: 'Bitter Ex-Employee',
+      prompt: `You are Jamie "Vendetta" Mitchell, who used to work at one of these database companies and has axes to grind. Write a roast with thinly veiled references to internal dysfunction, unrealistic roadmaps, and engineering shortcuts. Mock their marketing claims while hinting at what really goes on behind the scenes. You know where the bodies are buried and aren't afraid to hint at it.`
+    }
+  ];
+
   // Define cache file path
   const cacheFilePath = path.join(__dirname, '..', '_cache', 'roasts.json');
   
@@ -45,13 +84,22 @@ module.exports = async function() {
         if (!cache[articleKey]) {
           console.log(`Processing new article: ${article.title}`);
           
-            // Construct the prompt for Gemini
-            const prompt = `
-You are "The DB Detractor," a cynical and witty tech commentator. Your job is to write a satirical roast of the following blog post.
+          // Select a random persona
+          const persona = personas[Math.floor(Math.random() * personas.length)];
+          console.log(`Selected persona: ${persona.name}`);
+          
+          // Construct the prompt for Gemini
+          const prompt = `
+${persona.prompt}
 
 Your roast should be a single, cohesive monologue. Start with a sarcastic jab at the article's main point, then seamlessly transition into picking apart the details. Mock any corporate jargon, overblown success metrics, or "revolutionary" claims. Conclude with a funny, dismissive prediction.
 
-**Crucially, the final output must be a natural-flowing piece of commentary. Do not use section headers like "The Takedown" or "Sarcastic Summary."** Format your response using markdown.
+**Crucially, the final output must be a natural-flowing piece of commentary. Do not use section headers.** Format your response using markdown. Use formatting to enhance readability:
+- Use **bold** for emphasis on particularly ridiculous claims or buzzwords
+- Use *italics* for your sarcastic asides and mock quotes
+- Use blockquotes (>) sparingly for mock-highlighting absurd statements
+- Use bullet points if listing multiple failures or issues
+- Avoid emojis unless absolutely necessary for the joke
 
 Here is the blog post to roast:
 ---
@@ -64,6 +112,22 @@ ${article.contentSnippet || article.content || article.title}
             const response = await result.response;
             const roastText = response.text();
             
+            // Generate a unique slug
+            let baseSlug = article.title.toLowerCase()
+              .replace(/[^\w\s-]/g, '')
+              .replace(/\s+/g, '-')
+              .replace(/-+/g, '-')
+              .trim();
+            
+            // Check for existing slugs and append a counter if needed
+            let slug = baseSlug;
+            let counter = 1;
+            const existingSlugs = Object.values(cache).map(item => item.slug);
+            while (existingSlugs.includes(slug)) {
+              slug = `${baseSlug}-${counter}`;
+              counter++;
+            }
+            
             // Store the roast in cache
             cache[articleKey] = {
               title: article.title,
@@ -71,11 +135,9 @@ ${article.contentSnippet || article.content || article.title}
               pubDate: article.pubDate,
               roast: roastText,
               originalFeed: feedUrl,
-              slug: article.title.toLowerCase()
-                .replace(/[^\w\s-]/g, '')
-                .replace(/\s+/g, '-')
-                .replace(/-+/g, '-')
-                .trim()
+              personaName: persona.name,
+              personaRole: persona.role,
+              slug: slug
             };
             
             console.log(`Generated roast for: ${article.title}`);
