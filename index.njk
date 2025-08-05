@@ -11,7 +11,7 @@ permalink: "{% if pagination.pageNumber == 0 %}index.html{% else %}page/{{ pagin
   {% for roast in paginatedRoasts %}
     <div class="roast-item">
       <div class="roast-title">
-        <a href="/roast/{{ roast.title | slug }}/" class="roast-title-link">{{ roast.title }}</a>
+        <a href="{{ '/roast/' | url }}{{ roast.title | slug }}/" class="roast-title-link">{{ roast.title }}</a>
       </div>
       <div class="roast-subtitle">Originally from {{ roast.originalFeed | replace("https://www.", "") | replace("https://", "") | replace("/blog/rss", "") | replace("/rss.xml", "") | replace("rss", "") }}</div>
       <div class="roast-meta">

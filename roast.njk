@@ -4,7 +4,7 @@ pagination:
   data: roasts
   size: 1
   alias: roast
-permalink: "/roast/{{ roast.title | slug }}/"
+permalink: "roast/{{ roast.title | slug }}/index.html"
 ---
 
 <div class="roast-item single-roast">
@@ -18,5 +18,5 @@ permalink: "/roast/{{ roast.title | slug }}/"
 </div>
 
 <nav class="single-roast-nav">
-  <a href="/" class="back-to-list">← Back to all roasts</a>
+  <a href="{{ '/' | url }}" class="back-to-list">← Back to all roasts</a>
 </nav>
