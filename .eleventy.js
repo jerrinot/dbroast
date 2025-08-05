@@ -22,16 +22,6 @@ module.exports = function(eleventyConfig) {
       .trim();
   });
   
-  // Add escape filter for XML
-  eleventyConfig.addFilter("escape", (content) => {
-    return content
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-  });
-  
   // Add date filter
   eleventyConfig.addFilter("date", (dateObj, format) => {
     const date = new Date(dateObj);
@@ -41,9 +31,6 @@ module.exports = function(eleventyConfig) {
         month: 'long', 
         day: 'numeric' 
       });
-    }
-    if (format === "%Y-%m-%dT%H:%M:%SZ") {
-      return date.toISOString();
     }
     return date.toISOString().split('T')[0];
   });
