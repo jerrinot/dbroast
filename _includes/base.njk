@@ -212,7 +212,12 @@
             } else {
                 roastElement.classList.add('collapsed');
                 button.textContent = 'Read full roast →';
-                roastElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Scroll to the article title (parent container of the roast text)
+                const articleContainer = roastElement.closest('.roast-item');
+                const articleTitle = articleContainer.querySelector('.roast-title');
+                if (articleTitle) {
+                    articleTitle.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             }
         }
     </script>
