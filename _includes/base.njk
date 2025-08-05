@@ -183,11 +183,18 @@
         .back-to-list:hover {
             text-decoration: underline;
         }
+        .header-title-link {
+            color: white;
+            text-decoration: none;
+        }
+        .header-title-link:hover {
+            color: #f0f0f0;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>🔥 Daily Database Roasts 🔥</h1>
+        <h1><a href="{{ '/' | url }}" class="header-title-link">🔥 Daily Database Roasts 🔥</a></h1>
         <p>Where database blog posts get the satirical treatment they deserve</p>
     </div>
     
