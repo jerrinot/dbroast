@@ -12,7 +12,7 @@ permalink: "roast/{{ roast.slug }}/index.html"
   <div class="roast-subtitle">Originally from {{ roast.originalFeed | replace("https://www.", "") | replace("https://", "") | replace("/blog/rss", "") | replace("/rss.xml", "") | replace("rss", "") }}</div>
   <div class="roast-meta">
     <span class="pub-date">{{ roast.pubDate | date("readable") }}</span>
-    <span class="roast-author">• Roasted by {{ roast.personaName }}</span>
+    {% if roast.personaName %}<span class="roast-author">• Roasted by {{ roast.personaName }}</span>{% endif %}
     <a href="{{ roast.link }}" class="original-link" target="_blank">Read Original Article</a>
   </div>
   <div class="roast-text">{{ roast.roast | markdown | safe }}</div>
