@@ -27,7 +27,7 @@ permalink: "{% if pagination.pageNumber == 0 %}index.html{% else %}page/{{ pagin
   {% if pagination.pages.length > 1 %}
     <nav class="pagination">
       {% if pagination.href.previous %}
-        <a href="{{ pagination.href.previous }}" class="pagination-link pagination-prev">← Previous</a>
+        <a href="{{ pagination.href.previous | url }}" class="pagination-link pagination-prev">← Previous</a>
       {% endif %}
       
       <span class="pagination-info">
@@ -35,7 +35,7 @@ permalink: "{% if pagination.pageNumber == 0 %}index.html{% else %}page/{{ pagin
       </span>
       
       {% if pagination.href.next %}
-        <a href="{{ pagination.href.next }}" class="pagination-link pagination-next">Next →</a>
+        <a href="{{ pagination.href.next | url }}" class="pagination-link pagination-next">Next →</a>
       {% endif %}
     </nav>
   {% endif %}
