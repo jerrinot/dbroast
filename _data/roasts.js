@@ -60,7 +60,12 @@ module.exports = async function() {
               link: article.link,
               pubDate: article.pubDate,
               roast: roastText,
-              originalFeed: feedUrl
+              originalFeed: feedUrl,
+              slug: article.title.toLowerCase()
+                .replace(/[^\w\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .trim()
             };
             
             console.log(`Generated roast for: ${article.title}`);

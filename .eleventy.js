@@ -13,6 +13,28 @@ module.exports = function(eleventyConfig) {
     return md.render(content);
   });
   
+  // Add slug filter for creating URL-friendly slugs
+  eleventyConfig.addFilter("slug", (content) => {
+    return content.toLowerCase()
+      .replace(/[^\w\s-]/g, '') // Remove special characters
+      .replace(/\s+/g, '-')     // Replace spaces with hyphens
+      .replace(/-+/g, '-')      // Replace multiple hyphens with single
+      .trim();
+  });
+  
+  // Add date filter
+  eleventyConfig.addFilter("date", (dateObj, format) => {
+    const date = new Date(dateObj);
+    if (format === "readable") {
+      return date.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+    }
+    return date.toISOString().split('T')[0];
+  });
+  
   return {
     dir: {
       input: ".",

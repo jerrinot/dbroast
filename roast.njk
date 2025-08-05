@@ -1,0 +1,22 @@
+---
+layout: base.njk
+pagination:
+  data: roasts
+  size: 1
+  alias: roast
+permalink: "/roast/{{ roast.title | slug }}/"
+---
+
+<div class="roast-item single-roast">
+  <div class="roast-title">{{ roast.title }}</div>
+  <div class="roast-subtitle">Originally from {{ roast.originalFeed | replace("https://www.", "") | replace("https://", "") | replace("/blog/rss", "") | replace("/rss.xml", "") | replace("rss", "") }}</div>
+  <div class="roast-meta">
+    <span class="pub-date">{{ roast.pubDate | date("readable") }}</span>
+    <a href="{{ roast.link }}" class="original-link" target="_blank">Read Original Article</a>
+  </div>
+  <div class="roast-text">{{ roast.roast | markdown | safe }}</div>
+</div>
+
+<nav class="single-roast-nav">
+  <a href="/" class="back-to-list">← Back to all roasts</a>
+</nav>
