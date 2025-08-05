@@ -1,6 +1,16 @@
 {
   "urls": [
     "https://www.mongodb.com/blog/rss",
-    "https://cedardb.com/blog/index.xml"
+    "https://cedardb.com/blog/index.xml",
+    "https://dev.to/feed/franckpachot",
+    "https://avi.im/blag/index.xml",
+    "https://www.percona.com/blog/feed/",
+    "https://supabase.com/rss.xml",
+    "https://aws.amazon.com/blogs/database/category/database/amazon-aurora/feed/",
+    "https://muratbuffalo.blogspot.com/feeds/posts/default",
+    "https://planetscale.com/blog/feed.atom",
+    "https://www.tinybird.co/blog-posts/rss.xml",
+    "https://aphyr.com/posts.atom",
+    "https://smalldatum.blogspot.com/feeds/posts/default"
   ]
 }
