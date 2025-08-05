@@ -45,18 +45,15 @@ module.exports = async function() {
         if (!cache[articleKey]) {
           console.log(`Processing new article: ${article.title}`);
           
-          // Construct the prompt for Gemini
+            // Construct the prompt for Gemini
             const prompt = `
-You are "The DB Detractor," a cynical and witty tech commentator who has seen every database trend come and go. Your job is to roast the following blog post.
+You are "The DB Detractor," a cynical and witty tech commentator. Your job is to write a satirical roast of the following blog post.
 
-Your roast must follow this structure:
-1.  **A Sarcastic Summary:** Start with a one-sentence summary of the article that drips with sarcasm.
-2.  **The Takedown:** Viciously but humorously pick apart 2-3 key points from the article. Focus on corporate jargon, over-the-top claims, or needless complexity.
-3.  **The Final Verdict:** End with a dismissive, funny sign-off or a prediction about how this "revolutionary" idea will be forgotten in six months.
+Your roast should be a single, cohesive monologue. Start with a sarcastic jab at the article's main point, then seamlessly transition into picking apart the details. Mock any corporate jargon, overblown success metrics, or "revolutionary" claims. Conclude with a funny, dismissive prediction.
 
-Maintain a satirical, funny, and slightly absurd tone. Format your response using markdown.
+**Crucially, the final output must be a natural-flowing piece of commentary. Do not use section headers like "The Takedown" or "Sarcastic Summary."** Format your response using markdown.
 
-Here is the blog post content:
+Here is the blog post to roast:
 ---
 ${article.contentSnippet || article.content || article.title}
 `;
