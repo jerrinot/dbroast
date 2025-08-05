@@ -1,5 +1,6 @@
 {
   "urls": [
-    "https://www.mongodb.com/blog/rss"
+    "https://www.mongodb.com/blog/rss",
+    "https://cedardb.com/blog/index.xml"
   ]
 }

@@ -67,52 +67,28 @@ The static site will be generated in the `_site/` directory.
 
 ### Setting up GitHub Actions
 
-1. In your GitHub repository, go to Settings → Secrets and Variables → Actions
-2. Add a new repository secret:
-   - Name: `GEMINI_API_KEY`
-   - Value: Your Google Gemini API key
+1. **Add your API key as a repository secret:**
+   - In your GitHub repository, go to Settings → Secrets and Variables → Actions
+   - Add a new repository secret:
+     - Name: `GEMINI_API_KEY`
+     - Value: Your Google Gemini API key
 
-3. Create `.github/workflows/build-and-deploy.yml`:
+2. **Enable GitHub Pages:**
+   - Go to Settings → Pages
+   - Set Source to "GitHub Actions"
 
-```yaml
-name: Build and Deploy to GitHub Pages
+3. **The workflow is already configured** in `.github/workflows/deploy.yml` and will:
+   - Build and deploy on every push to main
+   - Run every 6 hours to fetch new articles automatically
+   - Can be triggered manually from the Actions tab
 
-on:
-  push:
-    branches: [ main ]
-  schedule:
-    - cron: '0 */6 * * *'  # Run every 6 hours to fetch new articles
+### Features
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Build site
-      env:
-        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      run: npm run build
-      
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./_site
-```
-
-4. Enable GitHub Pages in your repository settings and set the source to "GitHub Actions"
+- **Automatic deployment** on code changes
+- **Scheduled builds** every 6 hours to fetch new articles
+- **Manual triggers** available in GitHub Actions
+- **Proper permissions** for GitHub Pages deployment
+- **Artifact caching** for faster builds
 
 ## How It Works
 
