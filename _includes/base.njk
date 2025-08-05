@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Database Roasts</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            line-height: 1.6;
+            background-color: #ffffff;
+            color: #292929;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 20px;
+            border-bottom: 1px solid #e6e6e6;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            color: #292929;
+        }
+        .header p {
+            font-size: 1.1em;
+            color: #757575;
+            margin: 0;
+            font-weight: 400;
+        }
+        .roast-item {
+            background-color: white;
+            margin-bottom: 60px;
+            padding: 0;
+            border-bottom: 1px solid #e6e6e6;
+            padding-bottom: 40px;
+        }
+        .roast-item:last-child {
+            border-bottom: none;
+        }
+        .roast-title {
+            font-size: 1.75em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #292929;
+            line-height: 1.25;
+        }
+        .roast-subtitle {
+            font-size: 1em;
+            color: #757575;
+            margin-bottom: 20px;
+            font-weight: 400;
+            font-style: italic;
+        }
+        .roast-text {
+            margin: 20px 0 30px 0;
+            line-height: 1.75;
+            font-size: 1.125em;
+            color: #292929;
+            font-weight: 400;
+            position: relative;
+        }
+        .roast-text.collapsed {
+            max-height: 120px;
+            overflow: hidden;
+        }
+        .roast-text.collapsed::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(transparent, rgba(255,255,255,0.9));
+            pointer-events: none;
+        }
+        .expand-button {
+            background: none;
+            border: none;
+            color: #1a8917;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 0.95em;
+            margin-top: 10px;
+            padding: 8px 0;
+        }
+        .expand-button:hover {
+            text-decoration: underline;
+        }
+        .roast-text p {
+            margin-bottom: 1.5em;
+        }
+        .roast-text h1, .roast-text h2, .roast-text h3 {
+            font-weight: 700;
+            margin-top: 2em;
+            margin-bottom: 0.5em;
+        }
+        .roast-text strong {
+            font-weight: 700;
+        }
+        .roast-text em {
+            font-style: italic;
+        }
+        .roast-text ul, .roast-text ol {
+            margin: 1.5em 0;
+            padding-left: 2em;
+        }
+        .roast-text li {
+            margin-bottom: 0.5em;
+        }
+        .roast-meta {
+            font-size: 0.875em;
+            color: #757575;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .original-link {
+            color: #1a8917;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .original-link:hover {
+            text-decoration: underline;
+        }
+        .pub-date {
+            color: #757575;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔥 Daily Database Roasts 🔥</h1>
+        <p>Where database blog posts get the satirical treatment they deserve</p>
+    </div>
+    
+    {{ content | safe }}
+    
+    <script>
+        function toggleRoast(roastId, button) {
+            const roastElement = document.getElementById(roastId);
+            const isCollapsed = roastElement.classList.contains('collapsed');
+            
+            if (isCollapsed) {
+                roastElement.classList.remove('collapsed');
+                button.textContent = 'Show less ↑';
+            } else {
+                roastElement.classList.add('collapsed');
+                button.textContent = 'Read full roast →';
+                roastElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    </script>
+</body>
+</html>

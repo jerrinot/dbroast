@@ -1,0 +1,20 @@
+{
+  "name": "daily-database-roasts",
+  "version": "1.0.0",
+  "description": "A static website that generates satirical roasts of database blog posts",
+  "main": "index.js",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "keywords": ["eleventy", "static-site", "rss", "gemini", "database", "roasts"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "@google/generative-ai": "^0.21.0",
+    "rss-parser": "^3.13.0",
+    "dotenv": "^16.4.5",
+    "markdown-it": "^14.1.0"
+  }
+}
