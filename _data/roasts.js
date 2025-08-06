@@ -7,7 +7,7 @@ const path = require('path');
 module.exports = async function() {
   // Initialize the Gemini SDK and RSS Parser
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-preview-05-20' });
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-pro' });
   const parser = new Parser();
 
   // Define personas
