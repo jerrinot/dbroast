@@ -11,6 +11,7 @@
     "https://planetscale.com/blog/feed.atom",
     "https://www.tinybird.co/blog-posts/rss.xml",
     "https://aphyr.com/posts.atom",
-    "https://smalldatum.blogspot.com/feeds/posts/default"
+    "https://smalldatum.blogspot.com/feeds/posts/default",
+    "https://www.elastic.co/blog/feed"
   ]
 }
