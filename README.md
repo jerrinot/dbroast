@@ -9,6 +9,7 @@ A static website that generates satirical roasts of database blog posts using th
 - Caches processed articles to avoid duplicate API calls
 - Builds a static HTML site using Eleventy
 - Ready for deployment on GitHub Pages
+- Exposes an RSS feed of roasts at `/feed.xml`
 
 ## Setup Instructions
 
@@ -114,7 +115,8 @@ The static site will be generated in the `_site/` directory.
 ├── _cache/
 │   └── roasts.json     # Cached roasts (auto-generated)
 ├── _site/              # Generated static site (auto-generated)
-└── index.njk           # Homepage template
+├── index.njk           # Homepage template
+└── feed.njk            # RSS feed template
 ```
 
 ## Customization
