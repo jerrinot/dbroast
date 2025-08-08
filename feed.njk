@@ -1,0 +1,22 @@
+---
+layout: null
+permalink: feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>The DB Grill</title>
+    <link>https://db-grill.com/</link>
+    <description>Where database blog posts get flame-broiled to perfection</description>
+    {% for roast in roasts %}
+    <item>
+      <title>{{ roast.title }}</title>
+      <link>https://db-grill.com/roast/{{ roast.slug }}/</link>
+      <guid>https://db-grill.com/roast/{{ roast.slug }}/</guid>
+      <pubDate>{{ roast.pubDate | date("rss") }}</pubDate>
+      <description><![CDATA[{{ roast.roast | markdown | safe }}]]></description>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>
