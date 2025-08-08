@@ -49,6 +49,33 @@ module.exports = async function() {
     }
   ];
 
+  // Instruction templates for how the roast should be delivered
+  const instructionTemplates = [
+    // Classic monologue
+    'Your roast should be a single, cohesive monologue. Start with a sarcastic jab at the article\'s main point, then seamlessly transition into picking apart the details. Mock any corporate jargon, overblown success metrics, or "revolutionary" claims. Conclude with {closingStyle}.',
+    // Snarky listicle
+    'Present the roast as a snarky listicle. Use at most five bullet points, each exposing a flaw or overhyped feature. Sprinkle in {rhetoricalDevice} and end with {closingStyle}.',
+    // Backhanded compliment format
+    'Deliver the roast as a series of backhanded compliments. Pretend to praise the article while slyly undermining it. Lean on {rhetoricalDevice} for comedic effect. Wrap up with {closingStyle}.'
+  ];
+
+  // Optional twists to inject into the templates
+  const rhetoricalDevices = [
+    'irony',
+    'over-the-top hyperbole',
+    'deadpan understatement',
+    'biting alliteration',
+    'sarcastic metaphor'
+  ];
+
+  const closingStyles = [
+    'a mic-drop put-down',
+    'a weary sigh about the state of databases',
+    'a cheerful promise to never read this blog again',
+    'an exaggerated prediction of imminent failure',
+    'a faux-encouraging pat on the head'
+  ];
+
   // Define cache file path
   const cacheFilePath = path.join(__dirname, '..', '_cache', 'roasts.json');
   
@@ -89,10 +116,15 @@ module.exports = async function() {
           console.log(`Selected persona: ${persona.name}`);
           
           // Construct the prompt for Gemini
+          const template = instructionTemplates[Math.floor(Math.random() * instructionTemplates.length)];
+          const filledTemplate = template
+            .replace('{rhetoricalDevice}', rhetoricalDevices[Math.floor(Math.random() * rhetoricalDevices.length)])
+            .replace('{closingStyle}', closingStyles[Math.floor(Math.random() * closingStyles.length)]);
+
           const prompt = `
 ${persona.prompt}
 
-Your roast should be a single, cohesive monologue. Start with a sarcastic jab at the article's main point, then seamlessly transition into picking apart the details. Mock any corporate jargon, overblown success metrics, or "revolutionary" claims. Conclude with a funny, dismissive prediction.
+${filledTemplate}
 
 **Crucially, the final output must be a natural-flowing piece of commentary. Do not use section headers.** Format your response using markdown. Use formatting to enhance readability:
 - Use **bold** for emphasis on particularly ridiculous claims or buzzwords
