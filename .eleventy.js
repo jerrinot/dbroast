@@ -26,11 +26,14 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter("date", (dateObj, format) => {
     const date = new Date(dateObj);
     if (format === "readable") {
-      return date.toLocaleDateString('en-US', { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
       });
+    }
+    if (format === "rss") {
+      return date.toUTCString();
     }
     return date.toISOString().split('T')[0];
   });
