@@ -38,6 +38,9 @@ module.exports = function(eleventyConfig) {
     return date.toISOString().split('T')[0];
   });
   
+  // Pass-through static assets (images, CSS, etc.)
+  eleventyConfig.addPassthroughCopy("assets");
+  
   return {
     dir: {
       input: ".",

@@ -1,235 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Database Roasts</title>
-    <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="DB Grill RSS feed">
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            max-width: 680px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            line-height: 1.6;
-            background-color: #ffffff;
-            color: #292929;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 60px;
-            padding: 40px 20px;
-            border-bottom: 1px solid #e6e6e6;
-        }
-        .header h1 {
-            font-size: 2.5em;
-            font-weight: 700;
-            margin: 0 0 10px 0;
-            color: #292929;
-        }
-        .header p {
-            font-size: 1.1em;
-            color: #757575;
-            margin: 0;
-            font-weight: 400;
-        }
-        .roast-item {
-            background-color: white;
-            margin-bottom: 60px;
-            padding: 0;
-            border-bottom: 1px solid #e6e6e6;
-            padding-bottom: 40px;
-        }
-        .roast-item:last-child {
-            border-bottom: none;
-        }
-        .roast-title {
-            font-size: 1.75em;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: #292929;
-            line-height: 1.25;
-        }
-        .roast-subtitle {
-            font-size: 1em;
-            color: #757575;
-            margin-bottom: 20px;
-            font-weight: 400;
-            font-style: italic;
-        }
-        .roast-text {
-            margin: 20px 0 30px 0;
-            line-height: 1.75;
-            font-size: 1.125em;
-            color: #292929;
-            font-weight: 400;
-            position: relative;
-        }
-        .roast-text.collapsed {
-            max-height: 120px;
-            overflow: hidden;
-        }
-        .roast-text.collapsed::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background: linear-gradient(transparent, rgba(255,255,255,0.9));
-            pointer-events: none;
-        }
-        .expand-button {
-            background: none;
-            border: none;
-            color: #1a8917;
-            font-weight: 500;
-            cursor: pointer;
-            font-size: 0.95em;
-            margin-top: 10px;
-            padding: 8px 0;
-        }
-        .expand-button:hover {
-            text-decoration: underline;
-        }
-        .roast-text p {
-            margin-bottom: 1.5em;
-        }
-        .roast-text h1, .roast-text h2, .roast-text h3 {
-            font-weight: 700;
-            margin-top: 2em;
-            margin-bottom: 0.5em;
-        }
-        .roast-text strong {
-            font-weight: 700;
-        }
-        .roast-text em {
-            font-style: italic;
-        }
-        .roast-text ul, .roast-text ol {
-            margin: 1.5em 0;
-            padding-left: 2em;
-        }
-        .roast-text li {
-            margin-bottom: 0.5em;
-        }
-        .roast-meta {
-            font-size: 0.875em;
-            color: #757575;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #f0f0f0;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .original-link {
-            color: #1a8917;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .original-link:hover {
-            text-decoration: underline;
-        }
-        .pub-date {
-            color: #757575;
-        }
-        .roast-author {
-            color: #d73502;
-            font-weight: 500;
-        }
-        .roast-title-link {
-            color: #292929;
-            text-decoration: none;
-        }
-        .roast-title-link:hover {
-            color: #1a8917;
-            text-decoration: none;
-        }
-        .pagination {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 60px 0 40px 0;
-            padding: 20px 0;
-            border-top: 1px solid #e6e6e6;
-        }
-        .pagination-link {
-            color: #1a8917;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 10px 20px;
-            border: 1px solid #e6e6e6;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-        }
-        .pagination-link:hover {
-            background-color: #1a8917;
-            color: white;
-            border-color: #1a8917;
-        }
-        .pagination-info {
-            color: #757575;
-            font-size: 0.9em;
-        }
-        .single-roast .roast-text {
-            max-height: none;
-        }
-        .single-roast-nav {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e6e6e6;
-        }
-        .back-to-list {
-            color: #1a8917;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .back-to-list:hover {
-            text-decoration: underline;
-        }
-        .header-title-link {
-            color: #292929 !important;
-            text-decoration: none !important;
-        }
-        .header-title-link:hover {
-            color: #1a8917 !important;
-            text-decoration: none !important;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The DB Grill — Daily Database Roasts</title>
+  <meta name="theme-color" content="#101214" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="DB Grill RSS feed" />
+  <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-    <div class="header">
-        <h1><a href="{{ '/' | url }}" class="header-title-link">🔥 The DB Grill 🔥</a></h1>
-        <p>Where database blog posts get flame-broiled to perfection</p>
-    </div>
-    
+  <div class="smoke-layer smoke-1" aria-hidden="true"></div>
+  <div class="smoke-layer smoke-2" aria-hidden="true"></div>
+  <div class="container">
+    <header class="site-header">
+      <div class="brand">
+        <a href="{{ '/' | url }}" class="brand-logo" aria-label="DB Grill Home">
+          <img src="/assets/logo.svg" alt="DB Grill logo" width="40" height="40" style="width:40px;height:40px;" />
+        </a>
+        <div>
+          <h1 class="brand-title">The DB Grill</h1>
+          <p class="brand-subtitle">Where database blog posts get flame-broiled to perfection</p>
+        </div>
+        <a class="rss-link" href="/feed.xml">RSS</a>
+      </div>
+    </header>
+
     {{ content | safe }}
-    
-    <footer style="margin-top: 80px; padding: 40px 20px 20px 20px; border-top: 1px solid #e6e6e6; text-align: center; color: #757575; font-size: 0.875em;">
-        <p>Lovingly crafted with equal parts spite and stored procedures by <a href="https://twitter.com/jerrinot" style="color: #1a8917; font-weight: 500;">@jerrinot</a></p>
-        <p style="margin-top: 5px; font-size: 0.8em;">No databases were harmed in the making of these roasts. Their egos, however... 🔥</p>
+
+    <footer class="site-footer">
+      <p>Lovingly crafted with equal parts spite and stored procedures by <a href="https://twitter.com/jerrinot">@jerrinot</a></p>
+      <p style="margin-top:6px">No databases were harmed in the making of these roasts. Their egos, however... 🔥</p>
     </footer>
-    
-    <script>
-        function toggleRoast(roastId, button) {
-            const roastElement = document.getElementById(roastId);
-            const isCollapsed = roastElement.classList.contains('collapsed');
-            
-            if (isCollapsed) {
-                roastElement.classList.remove('collapsed');
-                button.textContent = 'Show less ↑';
-            } else {
-                roastElement.classList.add('collapsed');
-                button.textContent = 'Read full roast →';
-                // Scroll to the article title (parent container of the roast text)
-                const articleContainer = roastElement.closest('.roast-item');
-                const articleTitle = articleContainer.querySelector('.roast-title');
-                if (articleTitle) {
-                    articleTitle.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }
-        }
-    </script>
+  </div>
+
+  <script>
+    function toggleRoast(roastId, button) {
+      const roastElement = document.getElementById(roastId);
+      const isCollapsed = roastElement.classList.contains('collapsed');
+      if (isCollapsed) {
+        roastElement.classList.remove('collapsed');
+        button.textContent = 'Show less ↑';
+      } else {
+        roastElement.classList.add('collapsed');
+        button.textContent = 'Read full roast →';
+        const articleContainer = roastElement.closest('.roast-item');
+        const articleTitle = articleContainer && articleContainer.querySelector('.roast-title');
+        if (articleTitle) articleTitle.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  </script>
 </body>
 </html>
