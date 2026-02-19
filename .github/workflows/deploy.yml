@@ -1,78 +1,78 @@
-name: Build and Deploy to GitHub Pages
+# name: Build and Deploy to GitHub Pages
 
-on:
-  push:
-    branches: [ main ]
-  schedule:
-    - cron: '0 */6 * * *'  # Run every 6 hours to fetch new articles
-  workflow_dispatch:  # Allow manual triggers
+# on:
+#   push:
+#     branches: [ main ]
+#   schedule:
+#     - cron: '0 */6 * * *'  # Run every 6 hours to fetch new articles
+#   workflow_dispatch:  # Allow manual triggers
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
+# permissions:
+#   contents: write
+#   pages: write
+#   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+# concurrency:
+#   group: "pages"
+#   cancel-in-progress: false
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
     
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+#     steps:
+#     - name: Checkout
+#       uses: actions/checkout@v4
+#       with:
+#         token: ${{ secrets.GITHUB_TOKEN }}
       
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
+#     - name: Setup Node.js
+#       uses: actions/setup-node@v4
+#       with:
+#         node-version: '18'
+#         cache: 'npm'
         
-    - name: Install dependencies
-      run: npm ci
+#     - name: Install dependencies
+#       run: npm ci
       
-    - name: Build site
-      env:
-        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      run: npm run build
+#     - name: Build site
+#       env:
+#         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+#       run: npm run build
       
-    - name: Check for cache changes
-      id: cache-diff
-      run: |
-        if git diff --quiet _cache/roasts.json; then
-          echo "changed=false" >> $GITHUB_OUTPUT
-        else
-          echo "changed=true" >> $GITHUB_OUTPUT
-        fi
+#     - name: Check for cache changes
+#       id: cache-diff
+#       run: |
+#         if git diff --quiet _cache/roasts.json; then
+#           echo "changed=false" >> $GITHUB_OUTPUT
+#         else
+#           echo "changed=true" >> $GITHUB_OUTPUT
+#         fi
       
-    - name: Commit cache changes
-      if: steps.cache-diff.outputs.changed == 'true'
-      run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git add _cache/roasts.json
-        git commit -m "Update roasts cache [skip ci]"
-        git push
+#     - name: Commit cache changes
+#       if: steps.cache-diff.outputs.changed == 'true'
+#       run: |
+#         git config --local user.email "github-actions[bot]@users.noreply.github.com"
+#         git config --local user.name "github-actions[bot]"
+#         git add _cache/roasts.json
+#         git commit -m "Update roasts cache [skip ci]"
+#         git push
       
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
+#     - name: Setup Pages
+#       uses: actions/configure-pages@v4
       
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: ./_site
+#     - name: Upload artifact
+#       uses: actions/upload-pages-artifact@v3
+#       with:
+#         path: ./_site
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+#   deploy:
+#     environment:
+#       name: github-pages
+#       url: ${{ steps.deployment.outputs.page_url }}
+#     runs-on: ubuntu-latest
+#     needs: build
+#     steps:
+#       - name: Deploy to GitHub Pages
+#         id: deployment
+#         uses: actions/deploy-pages@v4
